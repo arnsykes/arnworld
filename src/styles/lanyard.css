@@ -1,0 +1,110 @@
+/* ========== lanyard.css ========== */
+:root{
+  --header-h: 96px;
+  --hero-top-pad: 24px;
+  --hero-max: 1320px;
+
+  /* area kanvas 3D (kanan) */
+  --lanyard-w: 620px;
+  --lanyard-h: 660px;
+
+  /* panel kiri */
+  --panel-radius: 18px;
+  --panel-bg: rgba(10,10,14,.64);
+  --panel-border: rgba(255,255,255,.12);
+  --panel-shadow: 0 20px 60px rgba(0,0,0,.45), 0 2px 8px rgba(0,0,0,.4) inset;
+
+  --gold: #f2d36b;
+}
+
+/* responsif */
+@media (max-width:1536px){ :root{ --hero-max:1220px; --lanyard-w:580px; --lanyard-h:580px; } }
+@media (max-width:1280px){ :root{ --hero-max:1120px; --lanyard-w:520px; --lanyard-h:520px; } }
+@media (max-width:1024px){ :root{ --hero-max:960px;  --lanyard-w:420px; --lanyard-h:420px; } }
+@media (max-width:868px){  :root{ --hero-max:760px;  --lanyard-w:360px; --lanyard-h:360px; } }
+@media (max-width:768px){  :root{ --hero-max:680px;  --lanyard-w:320px; --lanyard-h:320px; --header-h:84px; } }
+@media (max-width:580px){  :root{ --hero-max:560px;  --lanyard-w:0px;   --lanyard-h:0px;   } } /* opsional: nonaktifkan 3D di hp kecil */
+
+/* kontainer hero */
+.hero-shell{
+  max-width: var(--hero-max);
+  margin-inline: auto;
+  padding-inline: 12px;
+  padding-top: calc(var(--header-h) + var(--hero-top-pad));
+  padding-bottom: 40px;
+  overflow: visible;
+}
+.hero-grid{
+  display: grid;
+  grid-template-columns: 1.28fr var(--lanyard-w);
+  align-items: center;
+  column-gap: 48px;
+  min-height: 74vh;
+  overflow: visible;
+}
+@media (max-width:768px){
+  .hero-grid{ grid-template-columns: 1fr; row-gap: 28px; }
+}
+
+/* panel kiri */
+.hero-left{
+  transform: translateX(-18px) scale(1.07);
+  min-width: 0;
+  overflow: visible;
+}
+.panel-glass{
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--panel-radius);
+  box-shadow: var(--panel-shadow);
+}
+
+/* area 3D kanan */
+.hero-right{
+  width: var(--lanyard-w);
+  height: var(--lanyard-h);
+  align-self: start;
+  margin-top: calc(-1 * var(--hero-top-pad)); 
+  overflow: visible;
+  position: relative;
+  z-index: 60;
+}
+
+/* judul typewriter */
+.type-title{ position:relative; display:inline-block; white-space:nowrap }
+.type-title .caret{ margin-left:6px; animation:blink .9s steps(1) infinite }
+@keyframes blink{50%{opacity:0}}
+
+/* efek kilau teks */
+.shine-mask{
+  background: linear-gradient(90deg,#fff 0%,#ffe8a6 35%,#fff 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% 100%;
+  animation: shineRun 3.2s linear infinite;
+}
+@keyframes shineRun{ from{background-position:200% 0} to{background-position:-200% 0} }
+
+/* brand header kilau */
+.header-shine{
+  background: linear-gradient(90deg,#ffd76a,#ffffff,#ffd76a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 180% 100%;
+  animation: shineRun 4s linear infinite;
+}
+
+/* util kecil */
+.i-cog{ display:inline-flex; align-items:center; justify-content:center }
+.bg-base-card{ background: rgba(20,20,28,.72) }
+.border-base-line{ border-color: rgba(255,255,255,.12) }
+.shadow-lg{ box-shadow: 0 14px 40px rgba(0,0,0,.45) }
+
+/* hindari kanvas menutup klik di mobile kecil */
+@media (max-width:768px){
+  .hero-right{ pointer-events:none }
+}
